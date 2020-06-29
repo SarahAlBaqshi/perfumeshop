@@ -2,24 +2,17 @@ import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-const styles = {
-  text: { textAlign: "center" },
-  shopImage: {
-    display: "block",
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "50%",
-  },
-  perfumeImage: { width: "200px", height: "200px" },
-  list: {
-    alignItems: "center",
-    justifyContent: "center",
-    display: "flex",
-  },
-  perfume: { margin: "20px" },
-};
+import perfumes from "./perfumes"; //Data list from perfumes.js
+import styles from "./styles"; //styles list from styles.js
 
 function App() {
+  const perfumeList = perfumes.map((perfume) => (
+    <div style={styles.perfume} key={perfume.id}>
+      <img style={styles.perfumeImage} alt={perfume.name} src={perfume.image} />
+      <p style={styles.text}>{perfume.name}</p>
+      <p style={styles.text}>{perfume.price} KD</p>
+    </div>
+  ));
   return (
     <div>
       <div>
@@ -31,48 +24,7 @@ function App() {
           style={styles.shopImage}
         />
       </div>
-      <div style={styles.list}>
-        <div style={styles.perfume}>
-          <img
-            alt="Boadicea Perfume"
-            src="https://fimgs.net/mdimg/perfume/375x500.20516.jpg"
-            style={styles.perfumeImage}
-          />
-          <p style={styles.text}>Boadicea the Victorious</p>
-          <p style={styles.text}>Ardent</p>
-          <p style={styles.text}>85 KD</p>
-        </div>
-        <div style={styles.perfume}>
-          <img
-            alt="Xerjoff: More than Words"
-            src="https://fimgs.net/mdimg/perfume/375x500.16450.jpg"
-            style={styles.perfumeImage}
-          />
-          <p style={styles.text}>Xerjoff</p>
-          <p style={styles.text}>More than Words</p>
-          <p style={styles.text}>69 KD</p>
-        </div>
-        <div style={styles.perfume}>
-          <img
-            alt="Amouroud: Dark Orchid"
-            src="https://fimgs.net/mdimg/perfume/375x500.32584.jpg"
-            style={styles.perfumeImage}
-          />
-          <p style={styles.text}>Amouroud</p>
-          <p style={styles.text}>Dark Orchid</p>
-          <p style={styles.text}>69 KD</p>
-        </div>
-        <div style={styles.perfume}>
-          <img
-            alt="Maison Margiela: 'REPLICA' By the Fireplace"
-            src="https://beidounonline.com/uploads/products/520758831554206369.jpg"
-            style={styles.perfumeImage}
-          />
-          <p style={styles.text}>Maison Margiela</p>
-          <p style={styles.text}>'REPLICA' By the Fireplace </p>
-          <p style={styles.text}>41 KD</p>
-        </div>
-      </div>
+      <div style={styles.list}>{perfumeList}</div>
     </div>
   );
 }
