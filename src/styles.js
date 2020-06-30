@@ -6,7 +6,7 @@ const styles = {
     marginRight: "auto",
     width: "50%",
   },
-  perfumeImage: { width: "200px", height: "200px" },
+  perfumeImage: { width: "100px", height: "100px" },
   list: {
     alignItems: "center",
     justifyContent: "center",

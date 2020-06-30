@@ -1,18 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-
-import perfumes from "./perfumes"; //Data list from perfumes.js
-import styles from "./styles"; //styles list from styles.js
+//styles list from styles.js
+import styles from "./styles";
+// Components
+import PerfumeList from "./components/PerfumeList";
 
 function App() {
-  const perfumeList = perfumes.map((perfume) => (
-    <div style={styles.perfume} key={perfume.id}>
-      <img style={styles.perfumeImage} alt={perfume.name} src={perfume.image} />
-      <p style={styles.text}>{perfume.name}</p>
-      <p style={styles.text}>{perfume.price} KD</p>
-    </div>
-  ));
   return (
     <div>
       <div>
@@ -24,7 +16,7 @@ function App() {
           style={styles.shopImage}
         />
       </div>
-      <div style={styles.list}>{perfumeList}</div>
+      <PerfumeList />
     </div>
   );
 }
