@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
 //Components
 import PerfumeItem from "./PerfumeItem";
 
-//Styles
-//import styles from "../styles";
-import { ListWrapper } from "../styles";
-
 //Data
 import perfumes from "../perfumes";
 
-const PerfumeList = () =>
-  perfumes.map((perfume) => <PerfumeItem perfume={perfume} key={perfume.id} />);
+//Styles
+import { ListWrapper } from "../styles";
+
+const PerfumeList = () => {
+  const [_perfumes, setPerfumes] = useState(perfumes);
+  const deletePerfume = (perfumeID) => {
+    const updatedPerfumes = _perfumes.filter(
+      (perfume) => perfume.id !== perfumeID
+    );
+    setPerfumes(updatedPerfumes);
+  };
+  const perfumeList = _perfumes.map((perfume) => (
+    <PerfumeItem
+      perfume={perfume}
+      deletePerfume={deletePerfume}
+      key={perfume.id}
+    />
+  ));
+  return <ListWrapper>{perfumeList}</ListWrapper>;
+};
 
 export default PerfumeList;
