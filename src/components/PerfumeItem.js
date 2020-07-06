@@ -11,7 +11,11 @@ const PerfumeItem = (props) => {
   };
   return (
     <PerfumeWrapper>
-      <img alt={props.perfume.name} src={props.perfume.image} />
+      <img
+        alt={props.perfume.name}
+        src={props.perfume.image}
+        onClick={() => props.handleVisible(perfume.id)}
+      />
       <p>{props.perfume.name}</p>
       <p className="perfume-price">{props.perfume.price} KD</p>
       <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
