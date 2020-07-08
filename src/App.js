@@ -1,13 +1,8 @@
 import React, { useState } from "react";
+import { Route, Switch } from "react-router";
 
 //Styles
-import {
-  Description,
-  ShopImage,
-  Title,
-  ListWrapper,
-  ThemeButton,
-} from "./styles";
+import { ListWrapper } from "./styles";
 import GlobalStyle from "./styles";
 import { ThemeProvider } from "styled-components";
 
@@ -17,10 +12,10 @@ import perfumes from "./perfumes";
 // Components
 import PerfumeList from "./components/PerfumeList";
 import PerfumeDetail from "./components/PerfumeDetail";
-
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [perfume, setPerfume] = useState(null);
   const [_perfumes, setPerfumes] = useState(perfumes);
 
   const deletePerfume = (perfumeID) => {
@@ -28,47 +23,28 @@ function App() {
       (perfume) => perfume.id !== perfumeID
     );
     setPerfumes(updatedPerfumes);
-    setPerfume(null);
   };
 
-  const handleVisible = (perfumeID) => {
-    const selectedPerfume = perfumes.find(
-      (perfume) => perfume.id === perfumeID
-    );
-    setPerfume(selectedPerfume);
-  };
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
   };
-
-  const setView = () =>
-    perfume ? (
-      <PerfumeDetail perfume={perfume} deletePerfume={deletePerfume} />
-    ) : (
-      <PerfumeList
-        perfumes={_perfumes}
-        deletePerfume={deletePerfume}
-        handleVisible={handleVisible}
-      />
-    );
 
   return (
     <div>
       <ThemeProvider theme={theme[currentTheme]}>
         <GlobalStyle />
-        <ThemeButton onClick={toggleTheme}>
-          {currentTheme === "light" ? "Dark " : "Light "} Mode
-        </ThemeButton>
-        <div>
-          <Title>L'arHomme</Title>
-          <Description>Aromas of the World</Description>
-
-          <ShopImage
-            alt="perfume shop"
-            src="https://live.staticflickr.com/3139/2547932791_6bfcb78e83_b.jpg"
-          />
-        </div>
-        {setView()}
+        <NavBar toggleTheme={toggleTheme} currentTheme={currentTheme} />
+        <Switch>
+          <Route path="/perfumes/:perfumeSlug">
+            <PerfumeDetail perfumes={_perfumes} deletePerfume={deletePerfume} />
+          </Route>
+          <Route path="/perfumes">
+            <PerfumeList perfumes={_perfumes} deletePerfume={deletePerfume} />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
         <ListWrapper></ListWrapper>
       </ThemeProvider>
     </div>

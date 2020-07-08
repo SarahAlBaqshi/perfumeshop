@@ -1,5 +1,6 @@
 //Styled Import
 import styled, { createGlobalStyle } from "styled-components";
+import { Link } from "react-router-dom";
 
 const Title = styled.h1`
   text-align: center;
@@ -53,7 +54,6 @@ width: 500px;`;
 
 const ThemeButton = styled.button`
   font-size: 1em;
-  margin: 1.25em;
   padding: 0.25em 1em;
   border-radius: 3px;
   background-color: ${(props) => props.theme.mainColor};
@@ -70,7 +70,24 @@ export const DetailWrapper = styled.div`
     float: left;
   }
 `;
+export const SearchBarStyled = styled.input`
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 40%;
+`;
 
+export const Logo = styled(Link)`
+  padding: 0.75em;
+
+  img {
+    width: 8rem;
+  }
+`;
+
+export const NavStyled = styled.nav`
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
 export {
   Description,
   Title,

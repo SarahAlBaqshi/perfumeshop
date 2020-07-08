@@ -1,23 +1,33 @@
 import React from "react";
+import { useParams, Redirect } from "react-router-dom";
 
 //Styles
-import { DeleteButtonStyled, DetailWrapper } from "../styles";
-const CookieDetail = (props) => {
-  const perfume = props.perfume;
+import { DetailWrapper } from "../styles";
 
-  const handleDelete = () => {
-    props.deletePerfume(perfume.id);
-  };
+//Data
+import DeleteButton from "./Buttons/DeleteButton";
+
+const PerfumeDetail = (props) => {
+  const { perfumeSlug } = useParams();
+  const perfume = props.perfumes.find(
+    (perfume) => perfume.slug === perfumeSlug
+  );
+
+  if (!perfume) return <Redirect to="/perfumes" />;
 
   return (
     <DetailWrapper>
+      <p onClick={() => props.setPerfume()}>Back to Perfumes</p>
       <h1> {perfume.name}</h1>
       <img src={perfume.image} alt={perfume.name} />
       <p>{perfume.description}</p>
       <p>{perfume.price}</p>
-      <DeleteButtonStyled onClick={handleDelete}>Delete</DeleteButtonStyled>
+      <DeleteButton
+        perfumeID={perfume.id}
+        deletePerfume={props.deletePerfume}
+      />
     </DetailWrapper>
   );
 };
 
-export default CookieDetail;
+export default PerfumeDetail;
