@@ -1,6 +1,6 @@
 //Styled Import
 import styled, { createGlobalStyle } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Title = styled.h1`
   text-align: center;
@@ -82,6 +82,24 @@ export const Logo = styled(Link)`
 
   img {
     width: 8rem;
+  }
+`;
+export const NavItem = styled(NavLink)`
+  padding: 0.25em 1em;
+  color: ${(props) => props.theme.mainColor};
+
+  &.active {
+    color: ${(props) => props.theme.pink};
+  }
+`;
+
+export const CreateButtonStyled = styled.button`
+  color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.mainColor};
+
+  &:hover {
+    color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 `;
 

@@ -6,26 +6,29 @@ import SearchBar from "../components/SearchBar";
 
 //Styles
 import { ListWrapper } from "../styles";
+import AddButton from "./Buttons/AddButton";
 
-const PerfumeList = (props) => {
+const PerfumeList = ({ perfumes, createPerfume, deletePerfume }) => {
   const [query, setQuery] = useState("");
 
-  const perfumeList = props.perfumes
+  const perfumeList = perfumes
     .filter((perfume) =>
       perfume.name.toLowerCase().includes(query.toLowerCase())
     )
     .map((perfume) => (
       <PerfumeItem
         perfume={perfume}
-        deletePerfume={props.deletePerfume}
+        deletePerfume={deletePerfume}
         key={perfume.id}
       />
     ));
+
   return (
-    <>
+    <div className="container">
       <SearchBar setQuery={setQuery} />
       <ListWrapper>{perfumeList}</ListWrapper>
-    </>
+      <AddButton createPerfume={createPerfume} />
+    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
+import slugify from "react-slugify";
 
 //Styles
 import { ListWrapper } from "./styles";
@@ -14,9 +15,17 @@ import PerfumeList from "./components/PerfumeList";
 import PerfumeDetail from "./components/PerfumeDetail";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
+
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
   const [_perfumes, setPerfumes] = useState(perfumes);
+
+  const createPerfume = (newPerfume) => {
+    const updatedPerfumes = [...perfumes, newPerfume];
+    setPerfumes(updatedPerfumes);
+    newPerfume.id = _perfumes[_perfumes.length - 1].id + 1;
+    newPerfume.slug = slugify(newPerfume.name);
+  };
 
   const deletePerfume = (perfumeID) => {
     const updatedPerfumes = _perfumes.filter(
@@ -39,7 +48,11 @@ function App() {
             <PerfumeDetail perfumes={_perfumes} deletePerfume={deletePerfume} />
           </Route>
           <Route path="/perfumes">
-            <PerfumeList perfumes={_perfumes} deletePerfume={deletePerfume} />
+            <PerfumeList
+              perfumes={_perfumes}
+              createPerfume={createPerfume}
+              deletePerfume={deletePerfume}
+            />
           </Route>
           <Route exact path="/">
             <Home />

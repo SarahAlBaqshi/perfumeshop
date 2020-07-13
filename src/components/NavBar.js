@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import onlylogo from "../onlylogo.png";
-import { ThemeButton, NavStyled, Logo } from "../styles";
+import { ThemeButton, NavStyled, Logo, NavItem } from "../styles";
 
 const NavBar = (props) => {
   return (
@@ -11,13 +11,13 @@ const NavBar = (props) => {
           <img src={onlylogo} alt="logo" width="50" />
         </Logo>
         <div className="navbar-nav ml-auto">
-          <Link
+          <NavItem
             className="nav-item"
             to="/perfumes"
             style={{ margin: 10, float: "right" }}
           >
             Perfumes
-          </Link>
+          </NavItem>
 
           <Link
             className="nav-item"

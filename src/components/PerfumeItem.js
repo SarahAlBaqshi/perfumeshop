@@ -7,20 +7,15 @@ import { PerfumeWrapper } from "../styles";
 //Components
 import DeleteButton from "./Buttons/DeleteButton";
 
-const PerfumeItem = (props) => {
-  const perfume = props.perfume;
-
+const PerfumeItem = ({ perfume, deletePerfume }) => {
   return (
-    <PerfumeWrapper>
+    <PerfumeWrapper className="col-lg-4 col-md-6 col-sm-6">
       <Link to={`/perfumes/${perfume.slug}`}>
         <img alt={perfume.name} src={perfume.image} />
       </Link>
-      <p>{props.perfume.name}</p>
-      <p className="perfume-price">{props.perfume.price} KD</p>
-      <DeleteButton
-        perfumeID={perfume.id}
-        deletePerfume={props.deletePerfume}
-      />{" "}
+      <p>{perfume.name}</p>
+      <p className="perfume-price">{perfume.price} KD</p>
+      <DeleteButton perfumeID={perfume.id} deletePerfume={deletePerfume} />{" "}
     </PerfumeWrapper>
   );
 };
