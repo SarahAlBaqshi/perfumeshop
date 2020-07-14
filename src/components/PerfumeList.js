@@ -1,35 +1,34 @@
 import React, { useState } from "react";
 
+import { observer } from "mobx-react";
+
 //Components
 import PerfumeItem from "./PerfumeItem";
 import SearchBar from "../components/SearchBar";
+
+// Stores
+import perfumeStore from "../../src/stores/perfumeStore";
 
 //Styles
 import { ListWrapper } from "../styles";
 import AddButton from "./Buttons/AddButton";
 
-const PerfumeList = ({ perfumes, createPerfume, deletePerfume }) => {
+const PerfumeList = ({ createPerfume }) => {
   const [query, setQuery] = useState("");
 
-  const perfumeList = perfumes
+  const perfumeList = perfumeStore.perfumes
     .filter((perfume) =>
       perfume.name.toLowerCase().includes(query.toLowerCase())
     )
-    .map((perfume) => (
-      <PerfumeItem
-        perfume={perfume}
-        deletePerfume={deletePerfume}
-        key={perfume.id}
-      />
-    ));
+    .map((perfume) => <PerfumeItem perfume={perfume} key={perfume.id} />);
 
   return (
     <div className="container">
       <SearchBar setQuery={setQuery} />
       <ListWrapper>{perfumeList}</ListWrapper>
-      <AddButton createPerfume={createPerfume} />
+      <AddButton />
     </div>
   );
 };
 
-export default PerfumeList;
+export default observer(PerfumeList);

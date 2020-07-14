@@ -4,6 +4,9 @@ import Modal from "react-modal";
 //Styles
 import { CreateButtonStyled } from "../styles";
 
+//Stores
+import perfumeStore from "../stores/perfumeStore";
+
 const customStyles = {
   content: {
     top: "50%",
@@ -15,13 +18,15 @@ const customStyles = {
   },
 };
 
-const PerfumeModal = ({ isOpen, closeModal, createPerfume }) => {
-  const [perfume, setPerfume] = useState({
-    name: "",
-    price: 0,
-    description: "",
-    image: "",
-  });
+const PerfumeModal = ({ isOpen, closeModal, oldPerfume }) => {
+  const [perfume, setPerfume] = useState(
+    oldPerfume ?? {
+      name: "",
+      price: 0,
+      description: "",
+      image: "",
+    }
+  );
 
   const handleChange = (event) => {
     setPerfume({ ...perfume, [event.target.name]: event.target.value });
@@ -29,8 +34,7 @@ const PerfumeModal = ({ isOpen, closeModal, createPerfume }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(perfume);
-    createPerfume(perfume);
+    perfumeStore[oldPerfume ? "updatePerfume" : "createPerfume"](perfume);
     closeModal();
   };
 
@@ -51,6 +55,7 @@ const PerfumeModal = ({ isOpen, closeModal, createPerfume }) => {
               type="text"
               name="name" //exact name of the argument in perfumeModal function
               onChange={handleChange}
+              value={perfume.name}
               className="form-control"
             />
           </div>
@@ -62,6 +67,7 @@ const PerfumeModal = ({ isOpen, closeModal, createPerfume }) => {
               min="1"
               onChange={handleChange}
               className="form-control"
+              value={perfume.price}
             />
           </div>
         </div>
@@ -72,6 +78,7 @@ const PerfumeModal = ({ isOpen, closeModal, createPerfume }) => {
             type="text"
             onChange={handleChange}
             className="form-control"
+            value={perfume.description}
           />
         </div>
         <div className="form-group">
@@ -81,10 +88,11 @@ const PerfumeModal = ({ isOpen, closeModal, createPerfume }) => {
             type="text"
             onChange={handleChange}
             className="form-control"
+            value={perfume.image}
           />
         </div>
         <CreateButtonStyled className="btn float-right">
-          Create
+          {oldPerfume ? "Update" : "Create"}
         </CreateButtonStyled>
       </form>
     </Modal>

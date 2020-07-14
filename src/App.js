@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router";
-import slugify from "react-slugify";
 
 //Styles
 import { ListWrapper } from "./styles";
 import GlobalStyle from "./styles";
 import { ThemeProvider } from "styled-components";
-
-//Data
-import perfumes from "./perfumes";
 
 // Components
 import PerfumeList from "./components/PerfumeList";
@@ -18,21 +14,6 @@ import NavBar from "./components/NavBar";
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState("light");
-  const [_perfumes, setPerfumes] = useState(perfumes);
-
-  const createPerfume = (newPerfume) => {
-    const updatedPerfumes = [...perfumes, newPerfume];
-    setPerfumes(updatedPerfumes);
-    newPerfume.id = _perfumes[_perfumes.length - 1].id + 1;
-    newPerfume.slug = slugify(newPerfume.name);
-  };
-
-  const deletePerfume = (perfumeID) => {
-    const updatedPerfumes = _perfumes.filter(
-      (perfume) => perfume.id !== perfumeID
-    );
-    setPerfumes(updatedPerfumes);
-  };
 
   const toggleTheme = () => {
     setCurrentTheme(currentTheme === "light" ? "dark" : "light");
@@ -45,14 +26,10 @@ function App() {
         <NavBar toggleTheme={toggleTheme} currentTheme={currentTheme} />
         <Switch>
           <Route path="/perfumes/:perfumeSlug">
-            <PerfumeDetail perfumes={_perfumes} deletePerfume={deletePerfume} />
+            <PerfumeDetail />
           </Route>
           <Route path="/perfumes">
-            <PerfumeList
-              perfumes={_perfumes}
-              createPerfume={createPerfume}
-              deletePerfume={deletePerfume}
-            />
+            <PerfumeList />
           </Route>
           <Route exact path="/">
             <Home />

@@ -6,8 +6,8 @@ import PerfumeModal from "../../modals/PerfumeModal";
 //Styles
 import { IoIosAddCircle } from "react-icons/io";
 
-const AddButton = ({ createPerfume }) => {
-  const [isOpen, setIsOpen] = useState(true);
+const AddButton = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
 
@@ -20,11 +20,7 @@ const AddButton = ({ createPerfume }) => {
         size="2em"
         onClick={() => setIsOpen(true)}
       />
-      <PerfumeModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        createPerfume={createPerfume}
-      />
+      <PerfumeModal isOpen={isOpen} closeModal={closeModal} />
     </div>
   );
 };
