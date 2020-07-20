@@ -10,6 +10,7 @@ import perfumeStore from "../stores/perfumeStore";
 
 //Data
 import DeleteButton from "./Buttons/DeleteButton";
+import UpdateButton from "./Buttons/UpdateButton";
 
 const PerfumeDetail = () => {
   const { perfumeSlug } = useParams();
@@ -28,6 +29,7 @@ const PerfumeDetail = () => {
       <img src={perfume.image} alt={perfume.name} />
       <p>{perfume.description}</p>
       <p>{perfume.price}</p>
+      <UpdateButton perfume={perfume} />
       <DeleteButton perfumeID={perfume.id} />
     </DetailWrapper>
   );

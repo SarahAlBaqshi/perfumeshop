@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PerfumeModal from "../../modals/PerfumeModal";
 
 // Styling
-import { UpdateButtonStyled } from "../../styles";
+import { UpdateButtonStyled } from "./styles";
 
 const UpdateButton = ({ perfume }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -4,16 +4,16 @@ import { observer } from "mobx-react";
 
 //Components
 import PerfumeItem from "./PerfumeItem";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../SearchBar";
 
 // Stores
-import perfumeStore from "../../src/stores/perfumeStore";
+import perfumeStore from "../../stores/perfumeStore";
 
 //Styles
-import { ListWrapper } from "../styles";
-import AddButton from "./Buttons/AddButton";
+import { ListWrapper } from "../../styles";
+import AddButton from "../Buttons/AddButton";
 
-const PerfumeList = ({ createPerfume }) => {
+const PerfumeList = () => {
   const [query, setQuery] = useState("");
 
   const perfumeList = perfumeStore.perfumes

@@ -4,11 +4,11 @@ import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
 
 //Styles
-import { PerfumeWrapper } from "../styles";
+import { PerfumeWrapper } from "../../styles";
 
 //Components
-import DeleteButton from "./Buttons/DeleteButton";
-import UpdateButton from "./Buttons/UpdateButton";
+import DeleteButton from "../Buttons/DeleteButton";
+import UpdateButton from "../Buttons/UpdateButton";
 
 const PerfumeItem = ({ perfume }) => {
   return (

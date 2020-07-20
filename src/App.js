@@ -7,16 +7,19 @@ import GlobalStyle from "./styles";
 import { ThemeProvider } from "styled-components";
 
 // Components
-import PerfumeList from "./components/PerfumeList";
+import PerfumeList from "./components/PerfumeList/PerfumeList";
 import PerfumeDetail from "./components/PerfumeDetail";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState("light");
+  const savedTheme = localStorage.getItem("theme") ?? "light"; //check if theme exists. if not, use light
+  const [currentTheme, setCurrentTheme] = useState(savedTheme); // same key as set item
 
   const toggleTheme = () => {
-    setCurrentTheme(currentTheme === "light" ? "dark" : "light");
+    const newTheme = currentTheme === "light" ? "dark" : "light";
+    setCurrentTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
   };
 
   return (

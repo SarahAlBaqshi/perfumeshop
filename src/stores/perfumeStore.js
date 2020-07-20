@@ -1,9 +1,19 @@
-import perfumes from "../perfumes";
+//import perfumes from "../perfumes";
 import { decorate, observable } from "mobx";
 import slugify from "react-slugify";
+import axios from "axios";
 
 class PerfumeStore {
-  perfumes = perfumes;
+  perfumes = [];
+
+  fetchPerfumes = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/perfumes");
+      this.perfumes = response.data;
+    } catch (error) {
+      console.error("PerfumeStore -> fetchPerfume -> error", error);
+    }
+  };
 
   createPerfume = (newPerfume) => {
     newPerfume.id = this.perfumes[this.perfumes.length - 1].id + 1;
@@ -19,7 +29,8 @@ class PerfumeStore {
     for (const key in perfume) perfume[key] = updatedPerfume[key];
   };
 
-  deletePerfume = (perfumeID) => {
+  deletePerfume = async (perfumeID) => {
+    await axios.delete(`http://localhost:8000/perfumes/${perfumeID}`);
     this.perfumes = this.perfumes.filter((perfume) => perfume.id !== perfumeID);
   };
 }
@@ -29,5 +40,6 @@ decorate(PerfumeStore, {
 });
 
 const perfumeStore = new PerfumeStore();
+perfumeStore.fetchPerfumes();
 
 export default perfumeStore;

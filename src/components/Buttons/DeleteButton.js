@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteButtonStyled } from "../../styles";
+import { DeleteButtonStyled } from "./styles";
 
 //Stores
 import perfumeStore from "../../stores/perfumeStore";
