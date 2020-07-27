@@ -32,6 +32,9 @@ const PerfumeModal = ({ isOpen, closeModal, oldPerfume }) => {
     setPerfume({ ...perfume, [event.target.name]: event.target.value });
   };
 
+  const handleImage = (event) =>
+    setPerfume({ ...perfume, image: event.target.files[0] });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     perfumeStore[oldPerfume ? "updatePerfume" : "createPerfume"](perfume);
@@ -85,10 +88,9 @@ const PerfumeModal = ({ isOpen, closeModal, oldPerfume }) => {
           <label>Image</label>
           <input
             name="image"
-            type="text"
-            onChange={handleChange}
+            type="file"
+            onChange={handleImage}
             className="form-control"
-            value={perfume.image}
           />
         </div>
         <CreateButtonStyled className="btn float-right">

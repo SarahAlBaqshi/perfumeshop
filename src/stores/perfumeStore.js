@@ -1,6 +1,4 @@
-//import perfumes from "../perfumes";
 import { decorate, observable } from "mobx";
-import slugify from "react-slugify";
 import axios from "axios";
 
 class PerfumeStore {
@@ -15,18 +13,36 @@ class PerfumeStore {
     }
   };
 
-  createPerfume = (newPerfume) => {
-    newPerfume.id = this.perfumes[this.perfumes.length - 1].id + 1;
-    newPerfume.slug = slugify(newPerfume.name);
-    this.perfumes.push(newPerfume);
+  createPerfume = async (newPerfume) => {
+    try {
+      const formData = new FormData();
+      for (const key in newPerfume) formData.append(key, newPerfume[key]);
+      const res = await axios.post("http://localhost:8000/perfumes", formData);
+      this.perfumes.push(res.data);
+    } catch (error) {
+      console.log("perfumeStore -> createPerfume -> error", error);
+    }
   };
 
-  updatePerfume = (updatedPerfume) => {
-    console.log("CookieStore -> updateCookie -> updatedCookie", updatedPerfume);
-    const perfume = this.perfumes.find(
-      (perfume) => perfume.id === updatedPerfume.id
-    );
-    for (const key in perfume) perfume[key] = updatedPerfume[key];
+  updatePerfume = async (updatedPerfume) => {
+    try {
+      const formData = new FormData();
+      for (const key in updatedPerfume)
+        formData.append(key, updatedPerfume[key]);
+
+      //update in the backend
+      await axios.put(
+        `http://localhost:8000/perfumes/${updatedPerfume.id}`,
+        formData
+      );
+      // update in frontend
+      const perfume = this.perfumes.find(
+        (perfume) => perfume.id === updatedPerfume.id
+      );
+      for (const key in perfume) perfume[key] = updatedPerfume[key];
+    } catch (error) {
+      console.log("PerfumeStore -> UpdatePerfume => error", error);
+    }
   };
 
   deletePerfume = async (perfumeID) => {
