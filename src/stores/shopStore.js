@@ -1,5 +1,5 @@
 import { decorate, observable } from "mobx";
-import axios from "axios";
+import instance from "./instance";
 
 class ShopStore {
   shops = [];
@@ -7,7 +7,7 @@ class ShopStore {
 
   fetchShops = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/shops");
+      const response = await instance.get("/shops");
       this.shops = response.data;
       this.loading = false;
     } catch (error) {
@@ -19,7 +19,7 @@ class ShopStore {
     try {
       const formData = new FormData();
       for (const key in newShop) formData.append(key, newShop[key]);
-      const res = await axios.post(`http://localhost:8000/shops`, formData);
+      const res = await instance.post(`/shops`, formData);
       this.shops.push(res.data);
     } catch (error) {
       console.log("shopStore -> createShop -> error", error);
@@ -32,10 +32,7 @@ class ShopStore {
       for (const key in updatedShop) formData.append(key, updatedShop[key]);
 
       //update in the backend
-      await axios.put(
-        `http://localhost:8000/shops/${updatedShop.id}`,
-        formData
-      );
+      await instance.put(`/shops/${updatedShop.id}`, formData);
       // update in frontend
       const shop = this.shops.find((shop) => shop.id === updatedShop.id);
       for (const key in updatedShop) shop[key] = updatedShop[key];
@@ -45,7 +42,7 @@ class ShopStore {
   };
 
   deleteShop = async (shopId) => {
-    await axios.delete(`http://localhost:8000/shops/${shopId}`);
+    await instance.delete(`/shops/${shopId}`);
     this.shops = this.shops.filter((shop) => shop.id !== shopId);
   };
 }

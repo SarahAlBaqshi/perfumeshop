@@ -1,13 +1,12 @@
 import { decorate, observable } from "mobx";
-import axios from "axios";
-
+import instance from "./instance";
 class PerfumeStore {
   perfumes = [];
   loading = true;
 
   fetchPerfumes = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/perfumes");
+      const response = await instance.get("/perfumes");
       this.perfumes = response.data;
       this.loading = false;
     } catch (error) {
@@ -23,10 +22,7 @@ class PerfumeStore {
     try {
       const formData = new FormData();
       for (const key in newPerfume) formData.append(key, newPerfume[key]);
-      const res = await axios.post(
-        `http://localhost:8000/shops/${shop.id}/perfumes`,
-        formData
-      );
+      const res = await instance.post(`/shops/${shop.id}/perfumes`, formData);
       const perfume = res.data;
       this.perfumes.push(perfume);
       shop.perfumes.push({ id: res.data.id });
@@ -42,10 +38,7 @@ class PerfumeStore {
         formData.append(key, updatedPerfume[key]);
 
       //update in the backend
-      await axios.put(
-        `http://localhost:8000/perfumes/${updatedPerfume.id}`,
-        formData
-      );
+      await instance.put(`/perfumes/${updatedPerfume.id}`, formData);
       // update in frontend
       const perfume = this.perfumes.find(
         (perfume) => perfume.id === updatedPerfume.id
@@ -58,7 +51,7 @@ class PerfumeStore {
   };
 
   deletePerfume = async (perfumeID) => {
-    await axios.delete(`http://localhost:8000/perfumes/${perfumeID}`);
+    await instance.delete(`/perfumes/${perfumeID}`);
     this.perfumes = this.perfumes.filter((perfume) => perfume.id !== perfumeID);
   };
 }
