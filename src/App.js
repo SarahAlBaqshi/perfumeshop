@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router";
+
+import { observer } from "mobx-react";
 
 //Styles
 import { ListWrapper } from "./styles";
@@ -7,10 +8,13 @@ import GlobalStyle from "./styles";
 import { ThemeProvider } from "styled-components";
 
 // Components
-import PerfumeList from "./components/PerfumeList/PerfumeList";
-import PerfumeDetail from "./components/PerfumeDetail";
-import Home from "./components/Home";
+
 import NavBar from "./components/NavBar";
+
+// Routes
+import Routes from "./components/Routes/Routes";
+import shopStore from "./stores/shopStore";
+import perfumeStore from "./stores/perfumeStore";
 
 function App() {
   const savedTheme = localStorage.getItem("theme") ?? "light"; //check if theme exists. if not, use light
@@ -27,17 +31,11 @@ function App() {
       <ThemeProvider theme={theme[currentTheme]}>
         <GlobalStyle />
         <NavBar toggleTheme={toggleTheme} currentTheme={currentTheme} />
-        <Switch>
-          <Route path="/perfumes/:perfumeSlug">
-            <PerfumeDetail />
-          </Route>
-          <Route path="/perfumes">
-            <PerfumeList />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
+        {shopStore.loading || perfumeStore.loading ? (
+          <h1>Loading</h1>
+        ) : (
+          <Routes />
+        )}
         <ListWrapper></ListWrapper>
       </ThemeProvider>
     </div>
@@ -59,4 +57,4 @@ const theme = {
   },
 };
 
-export default App;
+export default observer(App);

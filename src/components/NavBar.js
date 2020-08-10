@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import onlylogo from "../onlylogo.png";
 import { ThemeButton, NavStyled, Logo, NavItem } from "../styles";
+import SignupButton from "./Buttons/SignupButton";
 
 const NavBar = ({ currentTheme, toggleTheme }) => {
   return (
@@ -11,6 +12,9 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
           <img src={onlylogo} alt="logo" width="50" />
         </Logo>
         <div className="navbar-nav ml-auto">
+          <NavItem className="nav-item" to="/shops">
+            Shops
+          </NavItem>
           <NavItem
             className="nav-item"
             to="/perfumes"
@@ -26,6 +30,7 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
           >
             Home
           </Link>
+          <SignupButton />
           <ThemeButton className="nav-item" onClick={toggleTheme}>
             {currentTheme === "light" ? "Dark " : "Light "} Mode
           </ThemeButton>

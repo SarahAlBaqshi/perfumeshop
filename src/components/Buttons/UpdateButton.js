@@ -3,8 +3,9 @@ import PerfumeModal from "../../modals/PerfumeModal";
 
 // Styling
 import { UpdateButtonStyled } from "./styles";
+import ShopModal from "../../modals/ShopModal";
 
-const UpdateButton = ({ perfume }) => {
+const UpdateButton = ({ perfume, shop }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => setIsOpen(false);
@@ -14,11 +15,15 @@ const UpdateButton = ({ perfume }) => {
   return (
     <>
       <UpdateButtonStyled onClick={openModal}>Update</UpdateButtonStyled>
-      <PerfumeModal
-        isOpen={isOpen}
-        closeModal={closeModal}
-        oldPerfume={perfume}
-      />
+      {shop ? (
+        <ShopModal isOpen={isOpen} closeModal={closeModal} oldShop={shop} />
+      ) : (
+        <PerfumeModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          oldPerfume={perfume}
+        />
+      )}
     </>
   );
 };
