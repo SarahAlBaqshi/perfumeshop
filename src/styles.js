@@ -43,9 +43,9 @@ export const PerfumeWrapper = styled.div`
 
 export const ShopImage = styled.img`
 display: block;
-margin-left auto;
+margin-left: auto;
 margin-right: auto;
-width 50%;
+width 50% ;
 height: 500px;
 width: 500px;`;
 

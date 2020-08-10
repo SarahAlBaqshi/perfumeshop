@@ -3,22 +3,33 @@ import axios from "axios";
 
 class PerfumeStore {
   perfumes = [];
+  loading = true;
 
   fetchPerfumes = async () => {
     try {
       const response = await axios.get("http://localhost:8000/perfumes");
       this.perfumes = response.data;
+      this.loading = false;
     } catch (error) {
       console.error("PerfumeStore -> fetchPerfume -> error", error);
     }
   };
 
-  createPerfume = async (newPerfume) => {
+  getPerfumeByID = (perfumeID) => {
+    return this.perfumes.find((perfume) => perfume.id === perfumeID);
+  };
+
+  createPerfume = async (newPerfume, shop) => {
     try {
       const formData = new FormData();
       for (const key in newPerfume) formData.append(key, newPerfume[key]);
-      const res = await axios.post("http://localhost:8000/perfumes", formData);
-      this.perfumes.push(res.data);
+      const res = await axios.post(
+        `http://localhost:8000/shops/${shop.id}/perfumes`,
+        formData
+      );
+      const perfume = res.data;
+      this.perfumes.push(perfume);
+      shop.perfumes.push({ id: res.data.id });
     } catch (error) {
       console.log("perfumeStore -> createPerfume -> error", error);
     }
@@ -40,6 +51,7 @@ class PerfumeStore {
         (perfume) => perfume.id === updatedPerfume.id
       );
       for (const key in perfume) perfume[key] = updatedPerfume[key];
+      perfume.image = URL.createObjectURL(updatedPerfume.image);
     } catch (error) {
       console.log("PerfumeStore -> UpdatePerfume => error", error);
     }
@@ -53,6 +65,7 @@ class PerfumeStore {
 
 decorate(PerfumeStore, {
   perfumes: observable,
+  loading: observable,
 });
 
 const perfumeStore = new PerfumeStore();

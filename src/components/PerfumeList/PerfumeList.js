@@ -6,17 +6,13 @@ import { observer } from "mobx-react";
 import PerfumeItem from "./PerfumeItem";
 import SearchBar from "../SearchBar";
 
-// Stores
-import perfumeStore from "../../stores/perfumeStore";
-
 //Styles
 import { ListWrapper } from "../../styles";
-import AddButton from "../Buttons/AddButton";
 
-const PerfumeList = () => {
+const PerfumeList = ({ perfumes = [] }) => {
   const [query, setQuery] = useState("");
 
-  const perfumeList = perfumeStore.perfumes
+  const perfumeList = perfumes
     .filter((perfume) =>
       perfume.name.toLowerCase().includes(query.toLowerCase())
     )
@@ -26,7 +22,6 @@ const PerfumeList = () => {
     <div className="container">
       <SearchBar setQuery={setQuery} />
       <ListWrapper>{perfumeList}</ListWrapper>
-      <AddButton />
     </div>
   );
 };

@@ -18,7 +18,7 @@ const customStyles = {
   },
 };
 
-const PerfumeModal = ({ isOpen, closeModal, oldPerfume }) => {
+const PerfumeModal = ({ shop, isOpen, closeModal, oldPerfume }) => {
   const [perfume, setPerfume] = useState(
     oldPerfume ?? {
       name: "",
@@ -37,7 +37,7 @@ const PerfumeModal = ({ isOpen, closeModal, oldPerfume }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    perfumeStore[oldPerfume ? "updatePerfume" : "createPerfume"](perfume);
+    perfumeStore[oldPerfume ? "updatePerfume" : "createPerfume"](perfume, shop);
     closeModal();
   };
 
