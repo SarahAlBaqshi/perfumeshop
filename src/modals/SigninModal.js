@@ -21,9 +21,6 @@ const customStyles = {
 const SigninModal = ({ isOpen, closeModal }) => {
   const [user, setUser] = useState({
     username: "",
-    email: "",
-    firstName: "",
-    lastName: "",
     password: "",
   });
 
@@ -32,8 +29,10 @@ const SigninModal = ({ isOpen, closeModal }) => {
   };
 
   const handleSubmit = (event) => {
-    // authStore.signin(user);
     event.preventDefault();
+
+    authStore.signin(user);
+    console.log(user);
     closeModal();
   };
 

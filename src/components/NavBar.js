@@ -4,6 +4,8 @@ import onlylogo from "../onlylogo.png";
 import { ThemeButton, NavStyled, Logo, NavItem } from "../styles";
 import SignupButton from "./Buttons/SignupButton";
 import SigninButton from "./Buttons/SigninButton";
+import authStore from "../stores/authStore";
+import { observer } from "mobx-react";
 
 const NavBar = ({ currentTheme, toggleTheme }) => {
   return (
@@ -13,6 +15,15 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
           <img src={onlylogo} alt="logo" width="50" />
         </Logo>
         <div className="navbar-nav ml-auto">
+          {authStore.user ? (
+            <p>Hello, {authStore.user.username}</p>
+          ) : (
+            <>
+              {" "}
+              <SigninButton />
+              <SignupButton />
+            </>
+          )}
           <NavItem className="nav-item" to="/shops">
             Shops
           </NavItem>
@@ -31,8 +42,7 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
           >
             Home
           </Link>
-          <SigninButton />
-          <SignupButton />
+
           <ThemeButton className="nav-item" onClick={toggleTheme}>
             {currentTheme === "light" ? "Dark " : "Light "} Mode
           </ThemeButton>
@@ -42,4 +52,4 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
   );
 };
 
-export default NavBar;
+export default observer(NavBar);
