@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import onlylogo from "../onlylogo.png";
 import { ThemeButton, NavStyled, Logo, NavItem } from "../styles";
 import SignupButton from "./Buttons/SignupButton";
+import SigninButton from "./Buttons/SigninButton";
 
 const NavBar = ({ currentTheme, toggleTheme }) => {
   return (
@@ -30,6 +31,7 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
           >
             Home
           </Link>
+          <SigninButton />
           <SignupButton />
           <ThemeButton className="nav-item" onClick={toggleTheme}>
             {currentTheme === "light" ? "Dark " : "Light "} Mode
