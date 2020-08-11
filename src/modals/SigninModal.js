@@ -43,7 +43,7 @@ const SigninModal = ({ isOpen, closeModal }) => {
       style={customStyles}
       contentLabel="Signin Modal"
     >
-      <h3>New User</h3>
+      <h3>Returning User</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Username</label>
