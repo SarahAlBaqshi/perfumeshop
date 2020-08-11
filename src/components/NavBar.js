@@ -6,6 +6,7 @@ import SignupButton from "./Buttons/SignupButton";
 import SigninButton from "./Buttons/SigninButton";
 import authStore from "../stores/authStore";
 import { observer } from "mobx-react";
+import { FiLogOut } from "react-icons/fi";
 
 const NavBar = ({ currentTheme, toggleTheme }) => {
   return (
@@ -16,7 +17,10 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
         </Logo>
         <div className="navbar-nav ml-auto">
           {authStore.user ? (
-            <p>Hello, {authStore.user.username}</p>
+            <>
+              <p>Hello, {authStore.user.username}</p>
+              <FiLogOut onClick={authStore.signout} size="2em" color="red" />
+            </>
           ) : (
             <>
               {" "}

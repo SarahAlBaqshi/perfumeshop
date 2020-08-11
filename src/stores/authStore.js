@@ -27,6 +27,11 @@ class AuthStore {
       console.log("AuthStore -> signin -> error", error);
     }
   };
+
+  signout = () => {
+    delete instance.defaults.headers.common.Authorization;
+    this.user = null;
+  };
 }
 
 decorate(AuthStore, {
