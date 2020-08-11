@@ -14,7 +14,8 @@ import { Redirect } from "react-router";
 const PerfumeList = ({ perfumes = [] }) => {
   const [query, setQuery] = useState("");
 
-  if (!authStore.user) return <Redirect to="/" />;
+  if (!authStore.user || authStore.user.role !== "admin")
+    return <Redirect to="/" />;
 
   const perfumeList = perfumes
     .filter((perfume) =>

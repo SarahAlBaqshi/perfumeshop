@@ -16,7 +16,9 @@ import authStore from "../../stores/authStore";
 
 const ShopList = () => {
   const [query, setQuery] = useState("");
-  if (!authStore.user) return <Redirect to="/" />;
+
+  if (!authStore.user || authStore.user.role !== "admin")
+    return <Redirect to="/" />;
 
   const shopList = shopStore.shops
     .filter((shop) => shop.name.toLowerCase().includes(query.toLowerCase()))

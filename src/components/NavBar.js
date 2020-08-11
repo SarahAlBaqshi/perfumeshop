@@ -25,7 +25,7 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
             </>
           )}
 
-          {authStore.user ? (
+          {authStore.user?.role === "admin" && (
             <>
               <NavItem className="nav-item" to="/shops">
                 Shops
@@ -38,7 +38,7 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
                 Perfumes
               </NavItem>
             </>
-          ) : null}
+          )}
 
           <Link
             className="nav-item"
