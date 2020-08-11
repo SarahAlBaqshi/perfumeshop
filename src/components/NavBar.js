@@ -24,16 +24,21 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
               <SignupButton />
             </>
           )}
-          <NavItem className="nav-item" to="/shops">
-            Shops
-          </NavItem>
-          <NavItem
-            className="nav-item"
-            to="/perfumes"
-            style={{ margin: 10, float: "right" }}
-          >
-            Perfumes
-          </NavItem>
+
+          {authStore.user ? (
+            <>
+              <NavItem className="nav-item" to="/shops">
+                Shops
+              </NavItem>
+              <NavItem
+                className="nav-item"
+                to="/perfumes"
+                style={{ margin: 10, float: "right" }}
+              >
+                Perfumes
+              </NavItem>
+            </>
+          ) : null}
 
           <Link
             className="nav-item"

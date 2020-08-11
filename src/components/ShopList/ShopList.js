@@ -1,19 +1,22 @@
 import React, { useState } from "react";
 import { observer } from "mobx-react";
+import { Redirect } from "react-router";
 
 //Components
 import ShopItem from "./ShopItem";
+import SearchBar from "../SearchBar";
+import AddButton from "../Buttons/AddButton";
 
 //styles
 import { Title } from "../../styles";
 
 //Stores
 import shopStore from "../../stores/shopStore";
-import SearchBar from "../SearchBar";
-import AddButton from "../Buttons/AddButton";
+import authStore from "../../stores/authStore";
 
 const ShopList = () => {
   const [query, setQuery] = useState("");
+  if (!authStore.user) return <Redirect to="/" />;
 
   const shopList = shopStore.shops
     .filter((shop) => shop.name.toLowerCase().includes(query.toLowerCase()))
