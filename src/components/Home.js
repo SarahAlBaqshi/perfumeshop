@@ -12,6 +12,7 @@ const Home = () => {
       />
     );
   }
+  // console.log("Home -> authStore.user.shopSlug", authStore);
   // if (authStore.user.shopSlug) {
   //   return <Redirect to={`/shops/${authStore.user.shopSlug}`} />;
   // }
