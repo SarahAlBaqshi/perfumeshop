@@ -3,6 +3,7 @@ import { Description, ShopImage, Title } from "../styles";
 import authStore from "../stores/authStore";
 import { Redirect } from "react-router";
 import { observer } from "mobx-react";
+import Container from "react-bootstrap/Container";
 
 const Home = () => {
   if (authStore.user) {
@@ -18,7 +19,7 @@ const Home = () => {
   // }
 
   return (
-    <>
+    <Container>
       <Title>L'arHomme</Title>
       <Description>Turn heads.</Description>
 
@@ -26,7 +27,7 @@ const Home = () => {
         alt="perfume shop"
         src="https://live.staticflickr.com/3139/2547932791_6bfcb78e83_b.jpg"
       />
-    </>
+    </Container>
   );
 };
 

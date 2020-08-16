@@ -42,12 +42,12 @@ export const PerfumeWrapper = styled.div`
 `;
 
 export const ShopImage = styled.img`
-display: block;
-margin-left: auto;
-margin-right: auto;
-width 50% ;
-height: 500px;
-width: 500px;`;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  max-height: 100%100%;
+`;
 
 export const ThemeButton = styled.button`
   font-size: 1em;
