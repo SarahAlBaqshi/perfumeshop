@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AuthButtonStyled } from "./styles";
 import SigninModal from "../../modals/SigninModal";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const SigninButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ const SigninButton = () => {
 
   return (
     <>
-      <AuthButtonStyled onClick={openModal}>Sign in</AuthButtonStyled>
+      <Nav.Link onClick={openModal}>Sign in</Nav.Link>
       <SigninModal isOpen={isOpen} closeModal={closeModal} />
     </>
   );

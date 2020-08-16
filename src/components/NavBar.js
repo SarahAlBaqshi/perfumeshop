@@ -15,6 +15,7 @@ import onlylogo from "../onlylogo.png";
 import { ThemeButton, NavStyled, Logo, NavItem } from "../styles";
 import ShopModal from "../modals/ShopModal";
 import { AuthButtonStyled } from "./Buttons/styles";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 
 const NavBar = ({ currentTheme, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,11 +25,14 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
   const openModal = () => setIsOpen(true);
 
   return (
-    <NavStyled className="navbar navbar-expand-lg">
-      <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <Logo className="navbar-brand" to="/">
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="light">
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Brand to="/">
+          {" "}
           <img src={onlylogo} alt="logo" width="50" />
-        </Logo>
+        </Navbar.Brand>
+
         <div className="navbar-nav ml-auto">
           {authStore.user ? (
             <>
@@ -74,8 +78,8 @@ const NavBar = ({ currentTheme, toggleTheme }) => {
             {currentTheme === "light" ? "Dark " : "Light "} Mode
           </ThemeButton>
         </div>
-      </div>
-    </NavStyled>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
