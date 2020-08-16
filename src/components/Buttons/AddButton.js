@@ -16,11 +16,7 @@ const AddButton = ({ shop }) => {
 
   return (
     <div>
-      <IoIosAddCircle
-        className="float-right"
-        size="2em"
-        onClick={() => setIsOpen(true)}
-      />
+      <IoIosAddCircle className="float-right" size="2em" onClick={openModal} />
 
       {shop ? (
         <PerfumeModal shop={shop} isOpen={isOpen} closeModal={closeModal} />

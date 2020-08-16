@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 import { DetailWrapper } from "../../styles";
 //Stores
 import shopStore from "../../stores/shopStore";
+import authStore from "../../stores/authStore";
 
 //Components
 import PerfumeList from "../PerfumeList/PerfumeList";
@@ -16,13 +17,18 @@ import perfumeStore from "../../stores/perfumeStore";
 
 const ShopDetail = () => {
   const { shopSlug } = useParams();
+
+  if (!authStore.user) return <Redirect to="/" />;
+
   const shop = shopStore.shops.find((_shop) => _shop.slug === shopSlug);
 
   if (!shop) return <Redirect to="/shops" />;
 
   const perfumes = shop.perfumes
-    .map((perfume) => perfumeStore.getPerfumeByID(perfume.id))
-    .filter((perfume) => perfume);
+    ? shop.perfumes
+        .map((perfume) => perfumeStore.getPerfumeByID(perfume.id))
+        .filter((perfume) => perfume)
+    : [];
 
   return (
     <div className="row">

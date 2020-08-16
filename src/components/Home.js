@@ -5,17 +5,21 @@ import { Redirect } from "react-router";
 import { observer } from "mobx-react";
 
 const Home = () => {
-  if (authStore.user)
+  if (authStore.user) {
     return (
       <Redirect
         to={authStore.user.shopSlug ? `/shops/${authStore.user.shopSlug}` : "/"}
       />
     );
+  }
+  // if (authStore.user.shopSlug) {
+  //   return <Redirect to={`/shops/${authStore.user.shopSlug}`} />;
+  // }
 
   return (
     <>
       <Title>L'arHomme</Title>
-      <Description>Aromas of the World</Description>
+      <Description>Turn heads.</Description>
 
       <ShopImage
         alt="perfume shop"

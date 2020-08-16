@@ -8,8 +8,10 @@ import SearchBar from "../SearchBar";
 
 //Styles
 import { ListWrapper } from "../../styles";
-import authStore from "../../stores/authStore";
-import { Redirect } from "react-router";
+
+//Stores
+// import authStore from "../../stores/authStore";
+// import { Redirect } from "react-router";
 
 const PerfumeList = ({ perfumes = [] }) => {
   const [query, setQuery] = useState("");
